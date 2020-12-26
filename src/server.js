@@ -11,6 +11,22 @@ const types = ['product', 'coupon', 'user']
 
 export const start = async () => {
   const rootSchema = `
+    type Cat {
+      name : String!
+      age : Int
+    }
+
+    type Owner {
+      name : String!
+      id : Int
+      age: Int
+    }
+
+    type Query{
+      helloCat : Cat
+      getOwner : Owner
+    }
+
     schema {
       query: Query
     }
@@ -19,7 +35,17 @@ export const start = async () => {
 
   const server = new ApolloServer({
     typeDefs: [rootSchema],
-    resolvers: {},
+    resolvers: {
+      Query : {
+        helloCat(){
+          return { name : "Baby Cat", age : 12}
+        },
+
+        getOwner(){
+          return { id: 1, name: "Koushik", age : 29}
+        }
+      }
+    },
     context({ req }) {
       // use the authenticate function from utils to auth req, its Async!
       return { user: null }
