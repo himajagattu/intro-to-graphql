@@ -52,7 +52,17 @@ export default {
     removeProduct
   },
   Product: {
-    __resolveType(product) {},
+    __resolveType(product) {
+      if(product.type == 'GAMING_PC'){
+        return 'GamingPc'
+      }
+      else if(product.type == 'BIKE'){
+        return 'Bike'
+      }
+      else if(product.type == 'DRONE'){
+        return 'Drone'
+      }
+    },
     createdBy(product) {
       return User.findById(product.createdBy)
         .lean()
